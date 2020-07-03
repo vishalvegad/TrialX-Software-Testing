@@ -1,0 +1,30 @@
+*** Settings ***
+Library  RequestsLibrary
+Library     Collections
+Library  SeleniumLibrary
+
+*** Variables ***
+${url}      http://restapi.demoqa.com/
+${city}     Delhi
+
+
+
+*** Test Cases ***
+weather_info
+    create session  mysesion     ${url}
+    ${response}=     get request  mysesion    /utilities/weather/city/${city}
+    log to console      ${response.status_code}
+    log to console      ${response.content}
+    log to console      ${response.headers}
+
+    #Validation
+    ${status_code}=     convert to string   ${response.status_code}
+    should be equal     ${status_code}      200
+
+    ${body}=   convert to string     ${response.content}
+    should contain        ${body}     Delhi
+
+    ${content type}=    get from dictionary  ${response.headers}    Content-Type
+    should be equal  ${content type}    application/json
+
+
