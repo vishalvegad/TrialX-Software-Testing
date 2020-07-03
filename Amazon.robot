@@ -1,0 +1,111 @@
+*** Settings ***
+Library  SeleniumLibrary
+
+*** Variables ***
+${amazon_url}=  https://www.amazon.in/
+${browser}=     chrome
+
+
+*** Test Cases ***
+Test
+    launch browser
+    maximized window
+    search
+    click search button
+    select mobile brand OnePlus
+    sort by featured
+    sort by prise high to low
+    select eligible for pay on delivery
+    select screen size
+    select mobile phone operating devise
+    select Dual Sim feature
+    select Touchscreen feature
+    select Battery Capacity
+    select Data Transfer 4G
+    select front camera resolution
+    select 8GB Ram
+    select primary camera resolution
+    select mobile condition New
+    select discount
+    select min price
+    select max price
+    click Go Button
+    select mobile
+    switch window  locator=NEW
+    add to cart
+    click Cart
+    click on Cart Icon
+
+*** Keywords ***
+launch browser
+    open browser    ${amazon_url}   ${browser}
+maximized window
+    Maximize Browser Window
+search
+    input text  id:twotabsearchtextbox  One Plus
+click search button
+    click button    //*[@id="nav-search"]/form/div[2]/div/input
+select mobile brand OnePlus
+    wait until element is visible   //*[@id="p_89/OnePlus"]/span/a/span
+    click element    //*[@id="p_89/OnePlus"]/span/a/span
+sort by featured
+    wait until element is visible   //*[@id="a-autoid-0-announce"]/span[2]
+    click element   //*[@id="a-autoid-0-announce"]/span[2]
+sort by prise high to low
+    wait until element is visible   //*[@id="s-result-sort-select_2"]
+    click element   //*[@id="s-result-sort-select_2"]
+select eligible for pay on delivery
+    wait until element is visible   //*[@id="p_n_is_cod_eligible/4931671031"]/span/a/span
+    click element   //*[@id="p_n_is_cod_eligible/4931671031"]/span/a/span
+select screen size
+    wait until element is visible   //*[@id="p_n_feature_six_browse-bin/6631756031"]/span/a/span
+    click element   //*[@id="p_n_feature_six_browse-bin/6631756031"]/span/a/span
+select mobile phone operating devise
+    wait until element is visible   //*[@id="p_n_operating_system_browse-bin/1485077031"]/span/a/span   8s
+    click element   //*[@id="p_n_operating_system_browse-bin/1485077031"]/span/a/span
+select Dual Sim feature
+    wait until element is visible   //*[@id="p_n_feature_three_browse-bin/1897963031"]/span/a/span  8s
+    click element   //*[@id="p_n_feature_three_browse-bin/1897963031"]/span/a/span
+select Touchscreen feature
+    wait until element is visible   //*[@id="p_n_feature_three_browse-bin/1484949031"]/span/a/span   8s
+    click element   //*[@id="p_n_feature_three_browse-bin/1484949031"]/span/a/span
+select Battery Capacity
+    wait until element is visible   //*[@id="p_n_feature_thirteen_browse-bin/8561102031"]/span/a/span   8s
+    click element   //*[@id="p_n_feature_thirteen_browse-bin/8561102031"]/span/a/span
+select Data Transfer 4G
+    wait until element is visible   //*[@id="p_n_feature_five_browse-bin/8561106031"]/span/a/span
+    click element   //*[@id="p_n_feature_five_browse-bin/8561106031"]/span/a/span
+select front camera resolution
+    wait until element is visible   //*[@id="p_n_feature_eleven_browse-bin/21329565031"]/span/a/span    8s
+    click element    //*[@id="p_n_feature_eleven_browse-bin/21329565031"]/span/a/span
+select 8GB Ram
+    wait until element is visible   //*[@id="p_n_feature_seven_browse-bin/16757455031"]/span/a/span     8s
+    click element   //*[@id="p_n_feature_seven_browse-bin/16757455031"]/span/a/span
+select primary camera resolution
+    wait until element is visible   //*[@id="p_n_feature_fourteen_browse-bin/21329559031"]/span/a/span
+    click element   //*[@id="p_n_feature_fourteen_browse-bin/21329559031"]/span/a/span
+select mobile condition New
+    wait until element is visible   //*[@id="p_n_condition-type/8609960031"]/span/a/span
+    click element   //*[@id="p_n_condition-type/8609960031"]/span/a/span
+select discount
+    wait until element is visible   //*[@id="p_n_pct-off-with-tax/2665399031"]/span/a/span
+    click element   //*[@id="p_n_pct-off-with-tax/2665399031"]/span/a/span
+select min price
+    wait until element is visible   id:low-price    8s
+    input text  id:low-price    20000
+select max price
+    input text  id:high-price   45000
+click Go Button
+    click button    //*[@id="a-autoid-1"]/span/input
+select Mobile
+    wait until element is visible   //*[@id="search"]/div[1]/div[1]/div/span[4]/div[2]/div[2]/div/span/div/div/div[2]/div[2]/div/div[1]/div/div/div[1]/h2/a/span    12s
+    click link           //*[@id="search"]/div[1]/div[1]/div/span[4]/div[2]/div[2]/div/span/div/div/div[2]/div[2]/div/div[1]/div/div/div[1]/h2/a
+add to cart
+    wait until element is visible   //*[@id="add-to-cart-button"]
+    click button    //*[@id="add-to-cart-button"]
+click Cart
+    wait until element is visible   //*[@id="attach-sidesheet-view-cart-button"]/span/input     12s
+    click button    //*[@id="attach-sidesheet-view-cart-button"]/span/input
+click on Cart Icon
+    wait until element is visible   //*[@id="nav-cart"]
+    click element   //*[@id="nav-cart"]
