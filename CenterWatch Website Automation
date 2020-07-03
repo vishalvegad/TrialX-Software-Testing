@@ -1,0 +1,73 @@
+*** Settings ***
+Library  SeleniumLibrary
+Library  String
+
+
+*** Variables ***
+${url}=     https://dev-iconnect.centerwatch.com/volunteers/registration/
+${browser}=     chrome
+${name}=    Vishal
+${mail}=    vishal.vegad5318@gmail.com
+${condition}=   Fever
+${gender}=  Male
+${month}=   December
+${day}=     17
+${year}=    1994
+${DOB}=  ${month}     ${day}      ${year}
+${location}=    India
+
+
+*** Test Cases ***
+Test
+    open browser    ${url}      ${browser}
+    input text  id:id_name     ${name}
+    input text   id:id_email     ${mail}
+    input text      //*[@id="content"]/div[3]/div/div/form/div[3]/span/span[1]/span/ul/li/input            Fever
+    wait until page contains    Fever
+    click element   //li[@class='select2-results__option select2-results__option--highlighted']
+    Select From List By Label   //*[@id="id_gender"]    Male
+    Select From List By Label       //*[@id="id_dob_month"]     December
+    Select From List By Label       //*[@id="id_dob_day"]       17
+    Select From List By Label       //*[@id="id_dob_year"]      1994
+    input text  id:place    India
+    wait until page contains    India
+    ${p}=   press keys   id:place    \ue015
+    press keys  ${p}    \ue007
+    sleep   120s
+
+
+Validation
+    ${enteredname}     get value    id_name
+    ${name_match}=  should be equal as strings    ${name}    ${enteredname}     #msg:custom error    #values=True
+    log to console  Name Validate successfully
+    ${entered_email}=  get value   id_email
+    should be equal as strings  ${mail}     ${entered_email}
+    log to console  Email Validate succesfully
+    ${condition_match}=   get text   //*[@id="content"]/div[3]/div/div/form/div[3]/span/span[1]/span/ul/li[1]
+    ${new_string}=     get substring   ${condition_match}  1
+    should be equal as strings  ${condition}    ${new_string}
+    log to console  Condition Validate successfully
+    ${gender_match}=    get text    //*[@id="id_gender"]/option[2]
+    should be equal as strings  ${gender}   ${gender_match}
+    log to console  gender validate successfully
+    #${gender_match}=    get text   //*[@id="id_gender"]
+    #should contain  ${gender_match}     ${gender}
+    ${month_match}=     get text    //*[@id="id_dob_month"]/option[13]
+    ${new_month}=   set variable  ${month_match}
+    ${day_match}=       get text    //*[@id="id_dob_day"]/option[18]
+    ${new_day}=     convert to string  ${day_match}
+    ${new_day1}=    set variable  ${new_day}
+    ${year_match}=      get text    //*[@id="id_dob_year"]/option[76]
+    ${new_year}=    convert to string  ${year_match}
+    ${new_year1}=   set variable  ${new_year}
+    ${DOB_match}=   set variable  ${new_month} ${new_day1} ${new_year1}
+    should be equal as strings  ${DOB}  ${DOB_match}
+    log to console  DOB validate successfully
+    ${location_match}=  get value       //*[@id="place"]
+    should be equal as strings   ${location}      ${location_match}
+    log to console  location validate successfully
+    element should be visible   //*[@id="content"]/div[3]/div/div/form/div[9]/div/div/label
+    log to console  check im 18 yeasr old succesfully
+    click button    //*[@id="contact_link"]
+    log to console  user sign up successfully and get Thank YOu message.
+
