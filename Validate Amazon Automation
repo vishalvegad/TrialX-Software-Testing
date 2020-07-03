@@ -1,0 +1,186 @@
+*** Settings ***
+Library           SeleniumLibrary
+
+*** Variables ***
+${amazon_url}     https://www.amazon.in/    # Opening Amazon Urll
+${Browser}        chrome    # opening url in chrome
+
+*** Test Cases ***
+Amazon Test
+    launch browser
+    Maximize Browser Window
+    search
+    click search button
+    Page Should Contain    One Plus
+    Log To Console    Successfully Searched"One Plus"
+    select mobile brand OnePlus
+    sort by featured
+    sort by price high to low
+    Page Should Contain    High to Low
+    Log To Console    Successfully Sort by price High To Low
+    select eligible for pay on delivery
+    Page Should Contain    Eligible for Pay On Delivery
+    Log To Console    Succesfully click on Eligible for pay on delivery
+    select mobile phone operating device
+    Page Should Contain    Android
+    Log To Console    Successfully Select Android operating Device
+    select Dual Sim feature
+    Wait Until Element Is Visible    //*[@id="p_n_feature_three_browse-bin/1897963031"]/span/a/span    12s
+    Element Text Should Be    //*[@id="p_n_feature_three_browse-bin/1897963031"]/span/a/span    Dual SIM
+    Log To Console    Succesfully Select Dual SIM feature
+    select Touchscreen feature
+    Log To Console    Successfully Select Touchscreen feature
+    select screen size
+    Page Should Contain    5.5 Inches & Above
+    Log To Console    Successfully select Screen Size
+    select battery capacity
+    Page Should Contain    4000 mAh & More
+    ${battery}    Get Text    //*[@id="p_n_feature_thirteen_browse-bin/8561102031"]/span/a/span
+    Log To Console    ${battery}
+    Should Be Equal    ${battery}    4000 mAh & More    Both Are Equal
+    Log To Console    Successfully select battery
+    select front camera resolution
+    Wait Until Element Is Visible    //*[@id="p_n_feature_eleven_browse-bin/21329565031"]/span/a/span    12s
+    ${camera}    Get Text    //*[@id="p_n_feature_eleven_browse-bin/21329565031"]/span/a/span
+    Log To Console    ${camera}
+    Should Be Equal    ${camera}    16 - 19.9 MP    Both Are Equal
+    Log To Console    Successsfully Select Front Camera Resolution
+    select 8GB Ram
+    Wait Until Element Is Visible    //*[@id="p_n_feature_seven_browse-bin/16757455031"]/span/a/span    12s
+    ${Ram}    Get Text    //*[@id="p_n_feature_seven_browse-bin/16757455031"]/span/a/span
+    Log To Console    ${Ram}
+    Should Be Equal    ${Ram}    8GB & above    Condition is true
+    Log To Console    Successfully Select RAM
+    select primary camera resolution
+    Wait Until Element Is Visible    //*[@id="p_n_feature_fourteen_browse-bin/21329559031"]/span/a/span    12s
+    Element Text Should Be    //*[@id="p_n_feature_fourteen_browse-bin/21329559031"]/span/a/span    32 MP & Above
+    ${primary_camera}    Get Text    //*[@id="p_n_feature_fourteen_browse-bin/21329559031"]/span/a/span
+    Log To Console    ${primary_camera}
+    Should Be Equal    ${primary_camera}    32 MP & Above
+    Log To Console    Successfully Select Primary Camera Resolution
+    select mobile condition to NEW
+    Log To Console    Successfully select NEW mobile condition
+    select discount
+    Log To Console    Successfully select Discount
+    select min price
+    ${min_price}    Get Value    id:low-price
+    Log To Console    ${min_price}
+    Should Be Equal    ${min_price}    20000
+    Log To Console    Successfully Entered Min \ Price
+    select max price
+    ${high-price}    Get Value    id:high-price
+    Log To Console    ${high-price}
+    Should Be Equal    ${high-price}    45000
+    Log To Console    Successfully Entered High Price
+    click Go Button
+    Log To Console    Successfully Click Go Button
+    select mobile
+    switch window    locator=NEW
+    Sleep    8s
+    Page Should Contain    OnePlus 7 Pro
+    Wait Until Element Is Visible    //*[@id="add-to-cart-button"]    10s
+    Page Should Contain Button    //*[@id="add-to-cart-button"]
+    add to cart
+    Log To Console    Successfully Click on Add to cart button
+    Wait Until Element Is Visible    //*[@id="attach-sidesheet-view-cart-button"]/span/input    12s
+    Page Should Contain Button    //*[@id="attach-sidesheet-view-cart-button"]/span/input
+    click Cart
+    Log To Console    Successfully Click on CART button
+    click on Cart Icon
+    Log To Console    Successfully Click on CART Icon
+
+*** Keywords ***
+launch browser
+    Open Browser    ${amazon_url}    ${Browser}
+
+Max Window
+    Max Window
+
+search
+    input text    id:twotabsearchtextbox    One Plus
+
+click search button
+    click button    //*[@id="nav-search"]/form/div[2]/div/input
+
+select mobile brand One Plus
+    wait until element is visible    //*[@id="p_89/OnePlus"]/span/a/span
+    click element    //*[@id="p_89/OnePlus"]/span/a/span
+
+sort by featured
+    wait until element is visible    //*[@id="a-autoid-0-announce"]/span[2]
+    click element    //*[@id="a-autoid-0-announce"]/span[2]
+
+sort by price high to low
+    wait until element is visible    //*[@id="s-result-sort-select_2"]
+    click element    //*[@id="s-result-sort-select_2"]
+
+select eligible for pay on delivery
+    wait until element is visible    //*[@id="p_n_is_cod_eligible/4931671031"]/span/a/span
+    click element    //*[@id="p_n_is_cod_eligible/4931671031"]/span/a/span
+
+select mobile phone operating device
+    wait until element is visible    //*[@id="p_n_operating_system_browse-bin/1485077031"]/span/a/span    8s
+    click element    //*[@id="p_n_operating_system_browse-bin/1485077031"]/span/a/span
+
+select dual sim feature
+    wait until element is visible    //*[@id="p_n_feature_three_browse-bin/1897963031"]/span/a/span    12s
+    click element    //*[@id="p_n_feature_three_browse-bin/1897963031"]/span/a/span
+
+select touch screen feature
+    wait until element is visible    //*[@id="p_n_feature_three_browse-bin/1484949031"]/span/a/span    12s
+    click element    //*[@id="p_n_feature_three_browse-bin/1484949031"]/span/a/span
+    Page Should Contain    Touchscreen
+
+select screen size
+    wait until element is visible    //*[@id="p_n_feature_six_browse-bin/6631756031"]/span/a/span
+    click element    //*[@id="p_n_feature_six_browse-bin/6631756031"]/span/a/span
+
+select battery capacity
+    wait until element is visible    //*[@id="p_n_feature_thirteen_browse-bin/8561102031"]/span/a/span    8s
+    click element    //*[@id="p_n_feature_thirteen_browse-bin/8561102031"]/span/a/span
+
+select front camera resolution
+    wait until element is visible    //*[@id="p_n_feature_eleven_browse-bin/21329565031"]/span/a/span    8s
+    click element    //*[@id="p_n_feature_eleven_browse-bin/21329565031"]/span/a/span
+
+select 8GB Ram
+    wait until element is visible    //*[@id="p_n_feature_seven_browse-bin/16757455031"]/span/a/span    8s
+    click element    //*[@id="p_n_feature_seven_browse-bin/16757455031"]/span/a/span
+
+select primary camera resolution
+    wait until element is visible    //*[@id="p_n_feature_fourteen_browse-bin/21329559031"]/span/a/span
+    click element    //*[@id="p_n_feature_fourteen_browse-bin/21329559031"]/span/a/span
+
+select mobile condition to NEW
+    wait until element is visible    //*[@id="p_n_condition-type/8609960031"]/span/a/span
+    click element    //*[@id="p_n_condition-type/8609960031"]/span/a/span
+
+select discount
+    wait until element is visible    //*[@id="p_n_pct-off-with-tax/2665399031"]/span/a/span    12s
+    click element    //*[@id="p_n_pct-off-with-tax/2665399031"]/span/a/span
+
+select min price
+    wait until element is visible    id:low-price    8s
+    input text    id:low-price    20000
+
+select max price
+    input text    id:high-price    45000
+
+click GO button
+    click button    //*[@id="a-autoid-1"]/span/input
+
+select mobile
+    wait until element is visible    //*[@id="search"]/div[1]/div[1]/div/span[4]/div[2]/div[2]/div/span/div/div/div[2]/div[2]/div/div[1]/div/div/div[1]/h2/a/span    12s
+    click link    //*[@id="search"]/div[1]/div[1]/div/span[4]/div[2]/div[2]/div/span/div/div/div[2]/div[2]/div/div[1]/div/div/div[1]/h2/a
+
+add to cart
+    wait until element is visible    //*[@id="add-to-cart-button"]
+    click button    //*[@id="add-to-cart-button"]
+
+click cart
+    wait until element is visible    //*[@id="attach-sidesheet-view-cart-button"]/span/input    12s
+    click button    //*[@id="attach-sidesheet-view-cart-button"]/span/input
+
+click on cart icon
+    wait until element is visible    //*[@id="nav-cart"]    10s
+    click element    //*[@id="nav-cart"]
