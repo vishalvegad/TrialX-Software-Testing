@@ -1,0 +1,25 @@
+*** Settings ***
+Library     RequestsLibrary
+Library     Collections
+Library  SeleniumLibrary
+*** Variables ***
+${url}=     http://restapi.demoqa.com/customer
+
+*** Test Cases ***
+post_request
+    create session      mysession       ${url}
+    ${data}=    create dictionary   FirstName=shamala,  	LastName =shamala,  	UserName =shamala5318,  	Password=shamala,  	Email=shamala1234@gmail.com,
+    ${Type}=    create dictionary   Content-Type=application/json
+    ${response}=    post request    mysession   /register   body=${data}    headers=${Type}
+
+    log to console  ${response.status_code}
+    log to console  ${response.content}
+
+    #validation
+
+    ${status_code}=     convert to string       ${response.status_code}
+    should be equal  ${status_code}     400
+
+    ${body}=    convert to string  ${response.content}
+    should contain  ${body}    Invalid post data, please correct the request
+    should contain  ${body}     FAULT_INVALID_POST_REQUEST
